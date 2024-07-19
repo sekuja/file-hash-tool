@@ -1,0 +1,14 @@
+{
+  "name": "file-hash-tool",
+  "version": "1.0.0",
+  "description": "Generate file hash using different algorithms",
+  "main": "hash.js",
+  "scripts": {
+    "hash": "node hash.js"
+  },
+  "author": "Sekuja",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^12.1.0"
+  }
+}
