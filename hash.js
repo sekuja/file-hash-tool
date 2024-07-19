@@ -25,10 +25,20 @@ function getHash(filePath, algorithm) {
 
         stream.on('data', (data) => hash.update(data));
         stream.on('end', () => resolve(hash.digest('hex')));
-        stream.on('error', (err) => reject(err));
+        stream.on('error', (err) => {
+            if (err.code === 'ENOENT') {
+                reject(new Error(`File not found. Please enter the correct file name or file path and try again: ${filePath}`));
+            } else {
+                reject(err);
+            }
+        });
     });
 }
 
 getHash(filePath, algorithm)
-    .then((hash) => console.log(`${algorithm} hash: ${hash}`))
-    .catch((err) => console.error('Error:', err));
+    .then((hash) => {
+        console.log(`${algorithm} hash: ${hash}`);
+    })
+    .catch((err) => {
+        console.error(`Error: ${err.message}`);
+    });
